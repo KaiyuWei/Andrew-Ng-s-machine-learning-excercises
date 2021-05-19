@@ -94,3 +94,35 @@ ax.set_xlabel('Iterations')
 ax.set_ylabel('Cost')
 ax.set_title('Error vs. Training Epoch')
 plt.show()
+
+
+# Optional excercise: linear regression with multiple variables.
+FileName = 'ex1data2.txt'
+data2 = pd.read_csv(FileName, header=None, names=['Size', 'Bedrooms', 'Price'])
+data2.head()
+
+data2 = (data2 - data2.mean()) / data2.std() # Feature-scaling of the data element-wise
+
+data2.insert(0, 'Ones', 1)  # Add ones column, for computation by matrix in following code
+
+# Set X and y
+cols = data2.shape[1]
+X2 = data2.iloc[:, 0:cols-1]
+y2 = data2.iloc[:, cols-1:cols]
+
+# Convert X, y to matrices
+X2 = np.matrix(X2.values)
+y2 = np.matrix(y2.values)
+theta2 = np.matrix(np.array(np.zeros(3)))
+g2, cost2 = gradientDescent(X2, y2, theta2, alpha, iters)
+
+# Get the value of the cost function
+computeCost(X2, y2, g2)
+
+# Visualize the training process
+fig, ax = plt.subplots(figsize=(12, 8))
+ax.plot(np.arange(iters), cost2, 'r')
+ax.set_xlabel('Iterations')
+ax.set_ylabel('Cost')
+ax.set_title('Errors vs. Training Epoch')
+plt.show()
