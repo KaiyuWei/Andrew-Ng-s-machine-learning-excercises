@@ -126,3 +126,16 @@ ax.set_xlabel('Iterations')
 ax.set_ylabel('Cost')
 ax.set_title('Errors vs. Training Epoch')
 plt.show()
+
+# Use normal equation to solve the multi-variable problem
+def normalEqn(X, y):
+    """
+    returns the value of theta that minimize the cost function
+    :param X: values of feature(s), including X_0 = 1
+    :param y: values of response
+    :return: values of theta that minimize the cost function
+    """
+    theta = np.linalg.inv(X.T @ X) @ X.T @ y  # @ is the dot product operator
+    return theta
+
+final_theta2 = normalEqn(X, y)
